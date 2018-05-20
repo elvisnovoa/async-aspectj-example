@@ -9,8 +9,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
-    @RequestMapping(method = RequestMethod.POST)
-    public UserResponse get(@RequestBody UserRequest userRequest) {
+    @MyAnnotation(async = false)
+    @RequestMapping(method = RequestMethod.POST, path = "/synchronous")
+    public UserResponse synchronous(@RequestBody UserRequest userRequest) {
+        return new UserResponse();
+    }
+
+    @MyAnnotation(async = true)
+    @RequestMapping(method = RequestMethod.POST, path = "/asynchronous")
+    public UserResponse asynchronous(@RequestBody UserRequest userRequest) {
+        return new UserResponse();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/notadvised")
+    public UserResponse notAdvised(@RequestBody UserRequest userRequest) {
         return new UserResponse();
     }
 }
